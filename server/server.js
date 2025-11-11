@@ -16,13 +16,10 @@ const allowedOrigins = [
   'http://localhost:5173'
 ];
 
-app.use(express.json());
-app.use(cookieParser());
-
 app.use(cors({
   credentials: true,
   origin: (origin, callback) => {
-    if (!origin) return callback(null, true); 
+    if (!origin) return callback(null, true);
     if (allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
@@ -31,11 +28,15 @@ app.use(cors({
   }
 }));
 
+app.use(express.json());
+app.use(cookieParser());
+
 app.get("/", (req, res) => {
-    res.send("API is running....");
+  res.send("API is running....");
 });
 
+// API endpoints
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 
-app.listen(port, () => console.log(`Server started on PORT:${port}`));
+app.listen(port, () => console.log(`Server started on PORT: ${port}`));
