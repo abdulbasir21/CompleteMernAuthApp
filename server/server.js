@@ -12,7 +12,7 @@ const port = process.env.PORT || 4000
 
 mongodb();
 
-const allowedOrigins = 'http://localhost:5173'
+const allowedOrigins = 'https://complete-mern-auth-app.vercel.app'
 app.use(express.json());
 
 app.use(cookieParser());
