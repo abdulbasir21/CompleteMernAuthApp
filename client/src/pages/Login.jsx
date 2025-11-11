@@ -68,7 +68,7 @@ const onSubmitHandler = async (e) => {
         setIsLoggedin(true);
         getUserData();
         toast.success(data.message);
-       await sendVerificationOtp();
+        sendVerificationOtp();
         navigate('/email-verify');
       } else {
         toast.error(data.message);
