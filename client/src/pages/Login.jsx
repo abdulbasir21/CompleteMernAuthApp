@@ -16,24 +16,26 @@ const [password, setPassword] = useState('');
 
 const navigate=useNavigate();
 
-const sendVerificationOtp = async (email) => {
+  
+const{backendUrl,setIsLoggedin,getUserData}= React.useContext(AppContext);
+
+const sendVerificationOtp = async () => {
   try {
     axios.defaults.withCredentials = true;
-    const { data } = await axios.post(`${backendUrl}/api/auth/send-verify-otp`, { email });
+    const { data } = await axios.post(backendUrl + '/api/auth/send-verify-otp')
     if (data.success) {
-      navigate('/email-verify');
-      toast.success(data.message);
+      navigate('/email-verify')
+      toast.success(data.message)
     } else {
-      toast.error(data.message);
+      toast.error(data.message)
     }
   } catch (error) {
-    toast.error(error.response?.data?.message || error.message);
+    toast.error(error.message)
   }
-};
+}
 
 
 
-const{backendUrl,setIsLoggedin,getUserData}= React.useContext(AppContext);
 
 
 const onSubmitHandler = async (e) => {
@@ -66,7 +68,7 @@ const onSubmitHandler = async (e) => {
         setIsLoggedin(true);
         getUserData();
         toast.success(data.message);
-        await sendVerificationOtp(email);
+       await sendVerificationOtp();
         navigate('/email-verify');
       } else {
         toast.error(data.message);
